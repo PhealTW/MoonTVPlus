@@ -274,12 +274,14 @@ export async function GET(request: NextRequest) {
       weight: result.weight ?? (weightMap.get(result.source) ?? 0),
     }));
 
-    if (!config.SiteConfig.DisableYellowFilter) {
+    // 黃色字詞過濾
+    // 改為不看參數 一律過濾 20261009
+    // if (!config.SiteConfig.DisableYellowFilter) {
       flattenedResults = flattenedResults.filter((result) => {
         const typeName = result.type_name || '';
         return !yellowWords.some((word: string) => typeName.includes(word));
       });
-    }
+    // }
 
     // 按权重降序排序
     flattenedResults.sort((a, b) => {
