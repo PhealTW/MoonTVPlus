@@ -274,12 +274,25 @@ export async function GET(request: NextRequest) {
       weight: result.weight ?? (weightMap.get(result.source) ?? 0),
     }));
 
+    const contentBlacklist = [
+      '敬请期待' 
+    ];
+
     // 黃色字詞過濾
     // 改為不看參數 一律過濾 20261009
     // if (!config.SiteConfig.DisableYellowFilter) {
       flattenedResults = flattenedResults.filter((result) => {
+
+        // 提取簡介文字（去除可能帶有的 HTML 標籤與空白）
+        const rawContent = result.vod_content || result.vod_blurb || '';
+        const cleanContent = rawContent.replace(/<[^>]+>/g, '').trim();
+        
         const typeName = result.type_name || '';
         return !yellowWords.some((word: string) => typeName.includes(word));
+
+        // (2) 簡介內容過濾：凡命中簡介黑名單特徵，直接剔除
+        const hasBadContent = contentBlacklist.some((keyword) => cleanContent.includes(keyword));
+        if (hasBadContent) return false;
       });
     // }
 
