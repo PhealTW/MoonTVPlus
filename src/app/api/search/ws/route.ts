@@ -385,8 +385,10 @@ export async function GET(request: NextRequest) {
           let filteredResults = safeResults;
           if (!config.SiteConfig.DisableYellowFilter) {
             filteredResults = safeResults.filter((result) => {
-              const typeName = result.type_name || '';
-              return !yellowWords.some((word: string) => typeName.includes(word));
+              // const typeName = result.type_name || '';
+              // return !yellowWords.some((word: string) => typeName.includes(word));
+              const textToCheck = `${result.vod_name || ''} ${result.type_name || ''}`;
+              return !yellowWords.some((word: string) => textToCheck.includes(word));              
             });
           }
 
@@ -507,8 +509,10 @@ export async function GET(request: NextRequest) {
           let filteredResults = sourceResults.flat();
           if (!config.SiteConfig.DisableYellowFilter) {
             filteredResults = filteredResults.filter((result) => {
-              const typeName = result.type_name || '';
-              return !yellowWords.some((word: string) => typeName.includes(word));
+              // const typeName = result.type_name || '';
+              // return !yellowWords.some((word: string) => typeName.includes(word));
+              const textToCheck = `${result.vod_name || ''} ${result.type_name || ''}`;
+              return !yellowWords.some((word: string) => textToCheck.includes(word));
             });
           }
 
