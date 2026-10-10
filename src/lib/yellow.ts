@@ -29,5 +29,6 @@ export const yellowWords = [
   '短剧',
   '微短剧',
   'AI短剧',
+  'AI漫剧',
   'AI生成',
 ];
