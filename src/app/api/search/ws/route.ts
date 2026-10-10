@@ -387,7 +387,7 @@ export async function GET(request: NextRequest) {
             filteredResults = safeResults.filter((result) => {
               // const typeName = result.type_name || '';
               // return !yellowWords.some((word: string) => typeName.includes(word));
-              const textToCheck = `${result.vod_name || ''} ${result.type_name || ''}`;
+              const textToCheck = `${result.vod_name || ''} ${result.title || ''} ${result.name || ''} ${result.type_name || ''} ${result.type || ''}`.toLowerCase();
               return !yellowWords.some((word: string) => textToCheck.includes(word));              
             });
           }
@@ -511,7 +511,7 @@ export async function GET(request: NextRequest) {
             filteredResults = filteredResults.filter((result) => {
               // const typeName = result.type_name || '';
               // return !yellowWords.some((word: string) => typeName.includes(word));
-              const textToCheck = `${result.vod_name || ''} ${result.type_name || ''}`;
+              const textToCheck = `${result.vod_name || ''} ${result.title || ''} ${result.name || ''} ${result.type_name || ''} ${result.type || ''}`.toLowerCase();
               return !yellowWords.some((word: string) => textToCheck.includes(word));
             });
           }
