@@ -279,8 +279,8 @@ export async function GET(request: NextRequest) {
     ];
 
     // 黃色字詞過濾
-    // 改為不看參數 一律過濾 20261009
-    // if (!config.SiteConfig.DisableYellowFilter) {
+    
+    if (!config.SiteConfig.DisableYellowFilter) {
       flattenedResults = flattenedResults.filter((result) => {
 
         // 提取簡介文字（去除可能帶有的 HTML 標籤與空白）
@@ -294,7 +294,7 @@ export async function GET(request: NextRequest) {
         const hasBadContent = contentBlacklist.some((keyword) => cleanContent.includes(keyword));
         if (hasBadContent) return false;
       });
-    // }
+    }
 
     // 按权重降序排序
     flattenedResults.sort((a, b) => {
